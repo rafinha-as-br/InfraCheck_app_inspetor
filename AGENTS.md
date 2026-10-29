@@ -32,3 +32,7 @@ Preserve a associação entre evidência, item inspecionado, momento de captura 
 - Regras de aprovação, histórico central e armazenamento definitivo pertencem ao servidor; o app deve respeitar os contratos de API definidos com ele.
 - Não assuma estruturas de API, modelo local, biblioteca ou padrão de arquitetura que ainda não existam no repositório. O repositório está em estado inicial; documente decisões antes de transformá-las em convenções.
 - Trate fotos, coordenadas e assinaturas como dados pessoais/sensíveis sob a LGPD.
+
+## Estado atual (protótipo do MVP)
+
+Fluxo M01–M05 implementado em `lib/presentation/`; camada offline-first em `lib/data/` (`LocalStore`, `InspectionRepository`, `SyncService`). Princípio inegociável: **nada coletado se perde sem conexão** — toda alteração é gravada no aparelho na hora e só é apagada após a confirmação do servidor. Ver `docs/overview.md`. `FAKE_GPS` existe só para desenvolvimento. Não verificado em aparelho Android/iOS.

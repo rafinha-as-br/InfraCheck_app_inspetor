@@ -1,0 +1,100 @@
+import 'package:infracheck_modules/infracheck_modules.dart';
+
+/// JSON de uma inspeção (formato da API) com [itemCount] itens, para os testes.
+Map<String, dynamic> detailJson({String id = 'insp-1', String status = 'PENDING', int itemCount = 2}) => {
+      'id': id,
+      'number': 1047,
+      'status': status,
+      'type': 'PREVENTIVE',
+      'urgent': false,
+      'scheduledDate': '2025-06-12',
+      'shift': 'MORNING',
+      'notes': null,
+      'contract': {
+        'id': 'c1',
+        'code': 'CT-1',
+        'clientName': 'Condomínio Bella Vista',
+        'address': 'Av. Paulista, 1200',
+        'segment': null,
+        'responsibleName': null,
+      },
+      'checklistCode': 'CKL-X',
+      'checklistName': 'Checklist X',
+      'inspector': {'id': 'u1', 'name': 'Marcos Oliveira', 'registration': 'INS-0231'},
+      'manager': {'id': 'm1', 'name': 'Helena Prado', 'registration': null},
+      'createdAt': '2025-06-10T17:22:00Z',
+      'startedAt': null,
+      'startLocation': null,
+      'finishedAt': null,
+      'endLocation': null,
+      'generalNotes': null,
+      'hasSignature': false,
+      'reviewComment': null,
+      'reviewedAt': null,
+      'reviewedBy': null,
+      'stats': {
+        'total': itemCount,
+        'answered': 0,
+        'conforming': 0,
+        'nonConforming': 0,
+        'notApplicable': 0,
+        'photos': 0,
+        'maxCriticality': null,
+        'conformityPercent': 0.0,
+      },
+      'items': [
+        for (var i = 1; i <= itemCount; i++)
+          {
+            'id': 'item-$i',
+            'itemNo': i,
+            'category': 'Sistema de incêndio',
+            'statement': 'Item $i',
+            'location': 'Hall',
+            'result': null,
+            'criticality': null,
+            'description': null,
+            'recommendedAction': null,
+            'photos': <dynamic>[],
+            'actionPlans': <dynamic>[],
+          }
+      ],
+      'events': <dynamic>[],
+    };
+
+InspectionDetail detail({int itemCount = 2}) => InspectionDetail.fromJson(detailJson(itemCount: itemCount));
+
+InspectionSummary summary({
+  String id = 'insp-1',
+  int number = 1047,
+  String status = 'PENDING',
+  String date = '2025-06-12',
+  bool urgent = false,
+}) =>
+    InspectionSummary.fromJson({
+      'id': id,
+      'number': number,
+      'status': status,
+      'type': urgent ? 'EMERGENCY' : 'PREVENTIVE',
+      'urgent': urgent,
+      'scheduledDate': date,
+      'shift': 'MORNING',
+      'clientName': 'Cliente $number',
+      'address': 'Rua X',
+      'checklistCode': 'CKL-X',
+      'inspector': {'id': 'u1', 'name': 'Marcos Oliveira', 'registration': 'INS-0231'},
+      'managerName': 'Helena Prado',
+      'startedAt': null,
+      'finishedAt': null,
+      'reviewComment': null,
+      'notes': null,
+      'stats': {
+        'total': 2,
+        'answered': 0,
+        'conforming': 0,
+        'nonConforming': 0,
+        'notApplicable': 0,
+        'photos': 0,
+        'maxCriticality': null,
+        'conformityPercent': 0.0,
+      },
+    });
